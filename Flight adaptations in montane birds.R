@@ -107,8 +107,12 @@ for (i in 1:50){
 {averaged_hwi_max <- summary_hwi_max %>% group_by (predictor) %>%summarise_all(mean)
   averaged_wl_max <- summary_wl_max %>% group_by (predictor) %>%summarise_all(mean)
   averaged_sl_max <- summary_sl_max %>% group_by (predictor) %>%summarise_all(mean)
+ 
+  averaged_hwi_max <- averaged_hwi_max %>% slice(-c(1,8)) # remove the first and last row
+  averaged_wl_max <- averaged_wl_max %>% slice(-c(1,8)) # remove the first and last row
+  averaged_sl_max <- averaged_sl_max %>% slice(-c(1,8)) # remove the first and last row
   
-  averaged_hw_maxi$conf_low <- averaged_hwi_max$Estimate-1.96*averaged_hwi_max$StdErr
+  averaged_hw_max$conf_low <- averaged_hwi_max$Estimate-1.96*averaged_hwi_max$StdErr
   averaged_hwi_max$conf_high <- averaged_hwi_max$Estimate+1.96*averaged_hwi_max$StdErr
   averaged_wl_max$conf_low <- averaged_wl_max$Estimate-1.96*averaged_wl_max$StdErr
   averaged_wl_max$conf_high <- averaged_wl_max$Estimate+1.96*averaged_wl_max$StdErr
@@ -157,6 +161,9 @@ for (i in 1:50){
 # Average out the results to get average coefficients
 {averaged_hwi_mean <- summary_hwi_mean %>% group_by (predictor) %>%summarise_all(mean)
   averaged_wl_mean <- summary_wl_mean %>% group_by (predictor) %>%summarise_all(mean)
+ 
+ averaged_hwi_mean <- averaged_hwi_mean %>% slice(-c(1,8)) # remove the first and last row
+  averaged_wl_mean <- averaged_wl_mean %>% slice(-c(1,8)) # remove the first and last row
  
   averaged_hw_meani$conf_low <- averaged_hwi_mean$Estimate-1.96*averaged_hwi_mean$StdErr
   averaged_hwi_mean$conf_high <- averaged_hwi_mean$Estimate+1.96*averaged_hwi_mean$StdErr
